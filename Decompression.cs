@@ -12,13 +12,19 @@ static class Decompression
         {
             if (bit)
             {
-                pointer = pointer.rChild;
+                if (pointer.rChild != null)
+                {
+                    pointer = pointer.rChild;
+                }
             }
             else
             {
-                pointer = pointer.lChild;
+                if (pointer.lChild != null)
+                {
+                    pointer = pointer.lChild;
+                }
             }
-            if (pointer.lChild == null || pointer.rChild == null)
+            if (pointer.isLeaf())
             {
                 output.Append(pointer.symbol);
                 pointer = tree;

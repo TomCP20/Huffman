@@ -31,20 +31,31 @@ public class Node
 
     private void DFS(Dictionary<char, List<bool>> encodingTable, List<bool> code)
     {
-        if (lChild == null || rChild == null)
+        if (isLeaf())
         {
             encodingTable.Add(symbol, new List<bool>(code));
         }
         else
         {
-            code.Add(false);
-            lChild.DFS(encodingTable, code);
-            code.RemoveAt(code.Count - 1);
-            code.Add(true);
-            rChild.DFS(encodingTable, code);
-            code.RemoveAt(code.Count - 1);
+            if (lChild != null)
+            {
+                code.Add(false);
+                lChild.DFS(encodingTable, code);
+                code.RemoveAt(code.Count - 1);
+            }
+
+            if (rChild != null)
+            {
+                code.Add(true);
+                rChild.DFS(encodingTable, code);
+                code.RemoveAt(code.Count - 1);
+            }
         }
     }
 
+    public bool isLeaf()
+    {
+        return lChild == null && rChild == null;
+    }
 
 }
