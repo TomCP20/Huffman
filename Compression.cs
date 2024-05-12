@@ -8,30 +8,14 @@ static class Compression
         PriorityQueue<Node, int> queue = InitialiseQueue(freq);
         Node head = GetTree(queue);
 
-        Dictionary<char, List<bool>> encoding = new Dictionary<char, List<bool>>();
-        DFS(encoding, new List<bool>(), head);
+        Dictionary<char, List<bool>> encodingTable = head.generateEncodingTable();
 
-        List<bool> result = text.Select(c => encoding[c]).SelectMany(x => x).ToList();
+        List<bool> result = text.Select(c => encodingTable[c]).SelectMany(x => x).ToList();
 
         return (result, head);
     }
 
-    private static void DFS(Dictionary<char, List<bool>> encoding, List<Boolean> code, Node node)
-    {
-        if (node.lChild == null || node.rChild == null)
-        {
-            encoding.Add(node.symbol, new List<bool>(code));
-        }
-        else
-        {
-            code.Add(false);
-            DFS(encoding, code, node.lChild);
-            code.RemoveAt(code.Count -1);
-            code.Add(true);
-            DFS(encoding, code, node.rChild);
-            code.RemoveAt(code.Count -1);
-        }
-    }
+
 
     private static Node GetTree(PriorityQueue<Node, int> queue)
     {
