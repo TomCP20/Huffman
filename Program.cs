@@ -9,8 +9,8 @@ static class Program
     static void Main()
     {
         Console.Write("Enter the desired text (press enter for default):");
-        string input = Console.ReadLine();
-        if (input == "")
+        string? input = Console.ReadLine();
+        if (input == "" || input == null)
         {
             input = LoremIpsum;
         }
