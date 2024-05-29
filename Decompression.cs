@@ -10,23 +10,20 @@ static class Decompression
         Node pointer = tree;
         foreach (bool bit in compressed)
         {
-            if (bit)
+            if (pointer is InternalNode I)
             {
-                if (pointer.rChild != null)
+                if (bit)
                 {
-                    pointer = pointer.rChild;
+                    pointer = I.rChild;
+                }
+                else
+                {
+                    pointer = I.lChild;
                 }
             }
-            else
+            if (pointer is LeafNode l)
             {
-                if (pointer.lChild != null)
-                {
-                    pointer = pointer.lChild;
-                }
-            }
-            if (pointer.isLeaf())
-            {
-                output.Append(pointer.symbol);
+                output.Append(l.symbol);
                 pointer = tree;
             }
 

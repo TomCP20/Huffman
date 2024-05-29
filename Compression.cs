@@ -23,7 +23,7 @@ static class Compression
         {
             Node a = queue.Dequeue();
             Node b = queue.Dequeue();
-            Node c = new Node(a, b);
+            Node c = new InternalNode(a, b);
             queue.Enqueue(c, c.weight);
         }
         Node head = queue.Dequeue();
@@ -35,7 +35,7 @@ static class Compression
         PriorityQueue<Node, int> queue = new PriorityQueue<Node, int>();
         foreach (KeyValuePair<char, int> entry in freq)
         {
-            queue.Enqueue(new Node(entry.Key, entry.Value), entry.Value);
+            queue.Enqueue(new LeafNode(entry.Key, entry.Value), entry.Value);
         }
         return queue;
     }
