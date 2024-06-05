@@ -1,10 +1,11 @@
+using System.Collections;
 using System.Text;
 
 namespace Huffman;
 
 static class Decompression
 {
-    public static string Decompress(List<bool> compressed, Node tree)
+    public static string Decompress(BitArray compressed, Node tree)
     {
         StringBuilder output = new StringBuilder();
         Node pointer = tree;

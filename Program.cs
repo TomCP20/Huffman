@@ -1,4 +1,6 @@
-﻿using System.Xml.XPath;
+﻿using System.Collections;
+using System.Text;
+using System.Xml.XPath;
 
 namespace Huffman;
 
@@ -16,13 +18,18 @@ static class Program
         }
 
 
-        (List<bool> compressed, Node tree) = Compression.Compress(input);
+        (BitArray compressed, Node tree) = Compression.Compress(input);
         
         string decompressed = Decompression.Decompress(compressed, tree);
 
         Console.WriteLine(input);
         Console.WriteLine();
-        Console.WriteLine(string.Join("", compressed.Select(a => a ? 1 : 0) ));
+        StringBuilder sb = new();
+        foreach (bool bit in compressed)
+        {
+            sb.Append(bit ? 1 : 0);
+        }
+        Console.WriteLine(sb.ToString());
         Console.WriteLine();
         Console.WriteLine(decompressed);
         Console.WriteLine();

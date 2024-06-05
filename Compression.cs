@@ -1,8 +1,10 @@
+using System.Collections;
+
 namespace Huffman;
 
 static class Compression
 {
-    public static (List<bool>, Node) Compress(string text)
+    public static (BitArray, Node) Compress(string text)
     {
         Dictionary<char, int> freq = GetFrequency(text);
         PriorityQueue<Node, int> queue = InitialiseQueue(freq);
@@ -10,7 +12,7 @@ static class Compression
 
         Dictionary<char, List<bool>> encodingTable = head.generateEncodingTable();
 
-        List<bool> result = text.Select(c => encodingTable[c]).SelectMany(x => x).ToList();
+        BitArray result = new BitArray(text.Select(c => encodingTable[c]).SelectMany(x => x).ToArray());
 
         return (result, head);
     }
